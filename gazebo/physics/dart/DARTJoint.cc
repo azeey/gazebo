@@ -836,7 +836,12 @@ void DARTJoint::SetForceImpl(unsigned int _index, double _force)
         this->dataPtr->dtJoint->getNumDofs());
 
   if (_index < dofs)
-    this->dataPtr->dtJoint->setForce(static_cast<std::size_t>(_index), _force);
+  {
+    auto curForce =
+        this->dataPtr->dtJoint->getForce(static_cast<std::size_t>(_index));
+    this->dataPtr->dtJoint->setForce(static_cast<std::size_t>(_index),
+                                     _force + curForce);
+  }
   else
     gzerr << "Invalid index [" << _index << "] (max: " << dofs << ")\n";
 }

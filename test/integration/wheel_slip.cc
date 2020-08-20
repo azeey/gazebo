@@ -519,9 +519,18 @@ TEST_F(WheelSlipTest, TriballDrift)
 // This test shows tricycles with spherical wheels
 // driving under load with and without slip compliance.
 // The actual slip should match the predicted value.
-TEST_F(WheelSlipTest, TricyclesUphill)
+//
+class WheelSlipTestParam : public WheelSlipTest,
+    public ::testing::WithParamInterface<const char*>
 {
-  Load("worlds/trisphere_cycle_wheel_slip.world", true, "dart");
+};
+INSTANTIATE_TEST_CASE_P(PhysicsEngines,
+                        WheelSlipTestParam,
+                        ::testing::Values("ode", "dart"),);  // NOLINT
+
+TEST_P(WheelSlipTestParam, TricyclesUphill)
+{
+  Load("worlds/trisphere_cycle_wheel_slip.world", true, GetParam());
 
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);

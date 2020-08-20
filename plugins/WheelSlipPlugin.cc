@@ -516,9 +516,9 @@ void WheelSlipPlugin::Update()
       }
       else
       {
-        const double k = speed / 9.810 / 17.24;
-        dartCollision->SetSlip1(k * params.slipComplianceLateral);
-        dartCollision->SetSlip2(k * params.slipComplianceLongitudinal);
+        dartCollision->SetSlip1(speed / force * params.slipComplianceLateral);
+        dartCollision->SetSlip2(speed / force *
+                                params.slipComplianceLongitudinal);
       }
     }
 

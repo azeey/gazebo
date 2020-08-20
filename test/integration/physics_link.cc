@@ -161,10 +161,10 @@ void PhysicsLinkTest::AddLinkForceTwoWays(
   // "World != link != inertial frame". This makes me suspect that the
   // inaccuracy is a result of cummulative matrix multiplications.
   double tolerance = 1e-6;
-  if ("dart" == _physicsEngine && !_world_equals_link && !_link_equals_inertial)
-  {
-    tolerance = 2e-3;
-  }
+  // if ("dart" == _physicsEngine && !_world_equals_link && !_link_equals_inertial)
+  // {
+  //   tolerance = 2e-3;
+  // }
 
   VEC_EXPECT_NEAR(oneStepLinearVel, _link->WorldCoGLinearVel(), tolerance);
 

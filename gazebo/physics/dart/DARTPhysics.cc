@@ -21,6 +21,7 @@
 #ifdef HAVE_DART_BULLET
 #include <dart/collision/bullet/bullet.hpp>
 #endif
+#include <dart/collision/ode/ode.hpp>
 
 #include <dart/collision/dart/dart.hpp>
 #include <dart/collision/fcl/fcl.hpp>
@@ -757,9 +758,11 @@ bool DARTPhysics::SetParam(const std::string &_key, const boost::any &_value)
         // See also discussion in the PR:
         // https://osrf-migration.github.io/gazebo-gh-pages/#!/osrf/gazebo/pull-requests/2956/
         //   dart-heightmap-with-bullet-and-ode/diff#comment-81389484
-        gzerr << "The use of the ODE collision detector with DART is disabled "
-            << "because it causes conflicts with the version of ODE used in "
-            << "Gazebo." << std::endl;
+        // gzerr << "The use of the ODE collision detector with DART is disabled "
+        //     << "because it causes conflicts with the version of ODE used in "
+        //     << "Gazebo." << std::endl;
+        gzdbg << "Using ODE collision detector" << std::endl;
+        cd = dart::collision::OdeCollisionDetector::create();
       }
       else if (useCollisionDetector == "dart")
       {
